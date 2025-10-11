@@ -58,4 +58,3 @@ O engajamento é medido pelo tempo médio que os usuários passam em qualquer p�
 $$\text{Engajamento Médio} = \frac{\sum \text{Tempo na Página}}{\sum \text{Sessões}}$$
 
 O resultado é visualizado em um gráfico de barras para identificar os dispositivos com maior engajamento.
----
