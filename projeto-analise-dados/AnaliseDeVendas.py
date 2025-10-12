@@ -2,7 +2,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-plt.style.use('ggplot') 
 
 dataframe = pd.read_csv("customer_journey.csv")
 print(dataframe.head())
@@ -46,18 +45,16 @@ plt.ylabel('Taxa de Conversão (%)')
 plt.xlabel('País')
 plt.tight_layout()
 plt.show()
-
 # %%
-# Engajamento por Dispositivo (Barra)
-x_dispositivos = engajamento_dispositivo.index
-y_tempo = engajamento_dispositivo.values
+medias = engajamento_dispositivo.values
+tipos_despositivo = engajamento_dispositivo.index
 cores = ['lightcoral', 'lightskyblue', 'lightgreen']
-plt.figure(figsize=(8, 5))
-plt.bar(x_dispositivos, y_tempo, color=cores)
+plt.figure(figsize=(8, 8)) 
+plt.pie(medias,labels=tipos_despositivo,autopct='%1.1f%%',startangle=90,colors=cores,
+        wedgeprops={'edgecolor': 'black', 'linewidth': 1})
 
-plt.title('Tempo Médio de Engajamento por Dispositivo')
-plt.ylabel('Tempo em Segundos (Média)')
-plt.xlabel('Tipo de Dispositivo')
+plt.title('Distribuição Percentual do Engajamento por Dispositivo')
+plt.axis('equal')
 plt.tight_layout()
 plt.show()
 # %%
