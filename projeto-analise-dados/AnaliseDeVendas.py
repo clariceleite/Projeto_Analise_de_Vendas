@@ -1,7 +1,6 @@
 # %%
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 dataframe = pd.read_csv("customer_journey.csv")
 print(dataframe.head())
@@ -46,6 +45,7 @@ plt.xlabel('País')
 plt.tight_layout()
 plt.show()
 # %%
+# Grafico Distribuição de Engajamento por Dispositivo
 medias = engajamento_dispositivo.values
 tipos_despositivo = engajamento_dispositivo.index
 cores = ['lightcoral', 'lightskyblue', 'lightgreen']
