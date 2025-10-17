@@ -1,4 +1,4 @@
-# 🚀 Projeto Básico de Análise de Dados: Jornada do Cliente e Conversão
+# 🚀 Projeto Básico de Análise de Dados: Jornada do Cliente 
 
 ## Visão Geral do Projeto
 
