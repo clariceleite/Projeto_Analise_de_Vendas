@@ -9,6 +9,8 @@ O foco da análise é responder a duas questões principais de negócio:
 
 1.  Qual país apresenta a **maior taxa de conversão**?
 2.  Qual tipo de dispositivo (**DeviceType**) demonstra o **maior engajamento**, tempo médio na página?
+3.  Qual é a diferença na **média de itens no carrinho** entre quem compra e quem não compra?
+4.  Quais são as **melhores combinações de País e Dispositivo** em termos de taxa de conversão?
 
 ---
 ## 💾 Dados Utilizados
@@ -45,11 +47,11 @@ O projeto utiliza um dataset simulado de jornadas de clientes (fornecido como `c
    
 ### Análise de Conversão por País
 
-A taxa de conversão é calculada como:
+A taxa de conversão é calculada com o número de compras dividido pelo **número total de sessões únicas** (usando `SessionID` e o método `nunique`), multiplicado por 100.:
 
 $$\text{Taxa de Conversão} = \frac{\sum \text{Compras}}{\sum \text{Sessões}} \times 100$$
 
-O resultado é visualizado em um gráfico de barras para identificar os mercados de melhor desempenho, logo com maior conversão.
+O resultado é visualizado em um gráfico de Barras para identificar os mercados de melhor desempenho, logo com maior conversão.
 
 ### Análise de Engajamento por Dispositivo
 
@@ -57,4 +59,30 @@ O engajamento é medido pelo tempo médio que os usuários passam em qualquer p�
 
 $$\text{Engajamento Médio} = \frac{\sum \text{Tempo na Página}}{\sum \text{Sessões}}$$
 
-O resultado é visualizado em um gráfico de pizza para identificar os dispositivos com o maior engajamento.
+O resultado é visualizado em um gráfico de Pizza para identificar a distribuição do engajamento entre os dispositivos.
+
+### Análise de Itens no Carrinho (Compradores vs. Não-Compradores)
+
+Esta análise tem como objetivo investigar o **comportamento de intenção de compra**. Compara-se a média de itens adicionados ao carrinho (`ItemsInCart`) 
+entre as sessões que finalizaram a compra (`Purchased = 1`) e as que não finalizaram (`Purchased = 0`).
+
+O resultado é visualizado em um gráfico de Barras para comparação direta das médias.
+
+### Análise Combinada entre País e Dispositivo
+
+Cria-se uma análise entrelaçada para identificar as combinações específicas de `Country` e `DeviceType` que geram as maiores taxas de conversão.
+
+O resultado é visualizado em uma tabela com o **Top 10** das combinações e um gráfico de Barras para ilustrar essas combinações de melhor performance.
+
+## 📈 Resultados da Análise
+### Taxa de Conversão 
+<img width="889" height="490" alt="image" src="https://github.com/user-attachments/assets/387b9f49-3bbf-4714-b730-c873b7498235" />
+
+### Taxa de Engajamento
+<img width="784" height="799" alt="image" src="https://github.com/user-attachments/assets/5e3b4612-6d13-4ecb-ac54-27b5b37f7134" />
+
+#### Média de Itens no Carrinho
+<img width="789" height="590" alt="image" src="https://github.com/user-attachments/assets/e424341a-71c5-40b0-aaa3-2e8c527d54d4" />
+
+#### Top 10 Combinações País + Dispositivo
+<img width="989" height="590" alt="image" src="https://github.com/user-attachments/assets/aa8b6e62-3e45-4fe2-8dce-efedad9f57da" />
