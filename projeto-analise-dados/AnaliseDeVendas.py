@@ -1,6 +1,7 @@
 # %%
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 dataframe = pd.read_csv("customer_journey.csv")
 print(dataframe.head())
@@ -44,11 +45,12 @@ plt.ylabel('Taxa de Conversão (%)')
 plt.xlabel('País')
 plt.tight_layout()
 plt.show()
+
 # %%
 # Grafico Distribuição de Engajamento por Dispositivo
 medias = engajamento_dispositivo.values
 tipos_despositivo = engajamento_dispositivo.index
-cores = ['lightcoral', 'lightskyblue', 'lightgreen']
+cores = sns.color_palette("viridis", len(conversao_pais))
 plt.figure(figsize=(8, 8)) 
 plt.pie(medias,labels=tipos_despositivo,autopct='%1.1f%%',startangle=90,colors=cores,
         wedgeprops={'edgecolor': 'black', 'linewidth': 1})
@@ -57,4 +59,50 @@ plt.title('Distribuição Percentual do Engajamento por Dispositivo')
 plt.axis('equal')
 plt.tight_layout()
 plt.show()
+
 # %%
+# Análise de Itens no Carrinho
+itens_carrinho = dataframe.groupby("Purchased")['ItemsInCart'].mean()
+print("\n--- Média de Itens no Carrinho ---")
+print(itens_carrinho)
+
+# %%
+# Gráfico Comparação de Itens no Carrinho
+categorias = ['Não Comprou', 'Comprou']
+medias_itens = [itens_carrinho[0], itens_carrinho[1]]
+cores = sns.color_palette("viridis", len(conversao_pais))
+plt.figure(figsize=(8, 6))
+plt.bar(categorias, medias_itens, color=cores, edgecolor='black', linewidth=1.5)
+plt.title('Média de Itens no Carrinho: Compradores vs Não-Compradores')
+plt.ylabel('Média de Itens')
+plt.xlabel('Status de Compra')
+plt.tight_layout()
+plt.show()
+
+# %%
+# Análise Combinada do País com o Dispositivo (Top Combinações)
+combinacao = dataframe.groupby(['Country', 'DeviceType']).agg(
+    total_sessoes=('SessionID', 'nunique'),
+    total_compras=('Purchased', 'sum')
+)
+combinacao['taxa_conversao'] = (combinacao['total_compras'] / combinacao['total_sessoes']) * 100
+combinacao = combinacao.sort_values(by='taxa_conversao', ascending=False).head(10)
+print("\n--- Top 10 Combinações País + Dispositivo (Taxa de Conversão) ---")
+print(combinacao)
+
+# %%
+# Gráfico de Barras para Combinações
+combinacao.reset_index(inplace=True)
+combinacoes = combinacao.apply(lambda row: f"{row['Country']} - {row['DeviceType']}", axis=1)
+taxas = combinacao['taxa_conversao']
+cores = sns.color_palette("viridis", len(combinacao))
+plt.figure(figsize=(10, 6))
+plt.bar(combinacoes, taxas, color=cores)
+plt.title('Top 10 Combinações País + Dispositivo (Taxa de Conversão)')
+plt.ylabel('Taxa de Conversão (%)')
+plt.xlabel('Combinação País + Dispositivo')
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+plt.show()
+# %%
+
